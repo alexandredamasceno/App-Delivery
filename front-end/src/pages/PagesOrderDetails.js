@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 // import Total from '../components/Total';
 import Header from '../components/Header';
-import DetailsOrder2 from '../components/DetailsOrder2';
+import DetailsOrder from '../components/DetailsOrder';
 import saleProductsAPI from '../service/saleProductsAPI';
 import AppContext from '../Context/AppContext';
 
@@ -27,7 +27,7 @@ function PagesOrderDetails() {
       <header>
         <Header />
       </header>
-      <DetailsOrder2 isRemoveBtn={ false } />
+      <DetailsOrder isRemoveBtn={ false } />
     </>
   );
 }
