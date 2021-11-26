@@ -10,7 +10,6 @@ import Checkout from './pages/Checkout';
 import PagesOrderDetails from './pages/PagesOrderDetails';
 import Register from './pages/Register';
 
-
 import PagesSellerOrderDetails from './pages/PagesSellerOrderDetails';
 import SellerOrders from './pages/SellerOrders';
 

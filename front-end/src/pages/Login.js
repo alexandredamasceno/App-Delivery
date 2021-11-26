@@ -47,10 +47,7 @@ function Login() {
       const { data } = await axios.post('http://localhost:3001/login', login);
 
       localStorage.setItem('user', JSON.stringify(data));
-      setRout1(data.role);
-      if (data.role !== 'customer' && data.role !== 'adm') setRout2('orders');
-      if (data.role === 'adm') setRout2('manage');
-      if (data.role === 'customer') setRout2('products');
+      setRout(data.role);
       setIsRedirect(true);
     } catch (e) {
       setErrorMessage(e.response.data.message);
@@ -59,7 +56,10 @@ function Login() {
     }
   };
 
-  const redirect = { seller: '/seller/orders', customer: '/customer/products' };
+  const redirect = {
+    seller: '/seller/orders',
+    customer: '/customer/products',
+    admin: '/admin/manage' };
   return (
     <div>
       {

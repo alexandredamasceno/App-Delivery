@@ -71,7 +71,7 @@ export default function DetailsSellerOrder() {
         <button
           type="button"
           name="Em Trânsito"
-          data-testid=" seller_order_details__button-dispatch-check"
+          data-testid="seller_order_details__button-dispatch-check"
           onClick={ handleClick }
         >
           Saiu Para Entrega
