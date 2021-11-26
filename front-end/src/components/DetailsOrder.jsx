@@ -1,9 +1,13 @@
-import React, { useContext } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
+
+import socketIOClient from 'socket.io-client';
 import AppContext from '../Context/AppContext';
+
+const URL = 'http://localhost:3001';
 
 function DetailsOrder() {
   const { productsAPI, detailsOrder, name } = useContext(AppContext);
+  const [changeStatus, setChangeStatus] = useState('');
 
   const dataTesteIdItemNumber = `customer_order_detail
     s__element-order-table-item-number-`;
@@ -20,6 +24,15 @@ function DetailsOrder() {
   const { id, saleDate, status } = detailsOrder;
   const date = new Date(saleDate);
 
+  const socket = socketIOClient(URL);
+  const handleChange = ({ target: { value } }) => {
+    console.log(value);
+    socket.emit('Entregue', { id, status: value });
+  };
+  socket.on('newStatus', (newStatus) => {
+    console.log(newStatus);
+    setChangeStatus(newStatus);
+  });
   return (
     <>
       <span>
@@ -47,13 +60,14 @@ function DetailsOrder() {
           htmlFor="input-status"
           data-testid={ dataTest }
         >
-          <span id="input-status">{status}</span>
+          <span id="input-status">{changeStatus && status}</span>
         </label>
         <button
-          disabled
+          value="Entregue"
           type="button"
           id="button"
           data-testid="customer_order_details__button-delivery-check"
+          onClick={ handleChange }
         >
           Marcar Como Entregue
         </button>

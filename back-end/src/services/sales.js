@@ -32,7 +32,15 @@ const getAllSales = async () => {
     return sales;
 };
 
+const updateSaleStatus = async ({ status, id }) => {
+  await Sale.update({ status }, { where: { id } });
+  const result = await Sale.findOne({ where: { id } });
+  console.log('BD: ', result.dataValues.status);
+  return result.dataValues.status;
+};
+
 module.exports = {
     addNewSale,
     getAllSales,
+    updateSaleStatus,
 };
