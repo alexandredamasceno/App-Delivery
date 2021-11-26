@@ -11,7 +11,8 @@ function Login() {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isRedirect, setIsRedirect] = useState(false);
-  const [rout, setRout] = useState('');
+  const [rout1, setRout1] = useState('');
+  const [rout2, setRout2] = useState('');
 
   const validateData = () => {
     // Ref- https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
@@ -47,7 +48,10 @@ function Login() {
       const { data } = await axios.post('http://localhost:3001/login', login);
 
       localStorage.setItem('user', JSON.stringify(data));
-      setRout(data.role);
+      setRout1(data.role);
+      if (data.role !== 'customer' && data.role !== 'adm') setRout2('orders');
+      if (data.role === 'adm') setRout2('manage');
+      if (data.role === 'customer') setRout2('products');
       setIsRedirect(true);
     } catch (e) {
       setErrorMessage(e.response.data.message);
@@ -58,7 +62,7 @@ function Login() {
 
   return (
     <div>
-      { isRedirect && <Redirect to={ `/${rout}/products` } />}
+      { isRedirect && <Redirect to={ `/${rout1}/${rout2}` } /> }
 
       <h1>Login page</h1>
 
