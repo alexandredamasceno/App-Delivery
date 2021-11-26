@@ -14,6 +14,7 @@ function AppProvider({ children }) {
   });
   const [validUser, setValidUser] = useState(false);
   const [dataOrder, setDataOrder] = useState([]);
+  const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
 
   const history = useHistory();
@@ -56,6 +57,9 @@ function AppProvider({ children }) {
   const changeUserState = ({ target: { name, value } }) => {
     setDataUser({ ...dataUser, [name]: value });
   };
+  const [productsAPI, setProductsAPI] = useState([]);
+  const [detailsOrder, setDetailsOrder] = useState([]);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     getProducts();
@@ -69,13 +73,22 @@ function AppProvider({ children }) {
     dataOrder,
     setDataUser,
     setDataOrder,
+    total,
+    setTotal,
     registerUser,
     changeUserState,
     validateDataUser,
+    productsAPI,
+    setProductsAPI,
+    detailsOrder,
+    setDetailsOrder,
+    name,
+    setName,
   };
-
   return (
-    <AppContext.Provider value={ { ...contextValue } }>
+    <AppContext.Provider
+      value={ { ...contextValue } }
+    >
       {children}
     </AppContext.Provider>
   );

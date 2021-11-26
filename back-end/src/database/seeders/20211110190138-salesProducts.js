@@ -8,12 +8,22 @@ module.exports = {
         {
           sale_id: 1,
           product_id: 2,
-          quantity: 56,
+          quantity: 5,
+        },
+        {
+          sale_id: 1,
+          product_id: 1,
+          quantity: 5,
+        },
+        {
+          sale_id: 1,
+          product_id: 4,
+          quantity: 5,
         },
         {
           sale_id: 2,
           product_id: 1,
-          quantity: 95,
+          quantity: 15,
         },
       ],
       { timestamps: false }
@@ -23,4 +33,4 @@ module.exports = {
   down: async (queryInterface, _Sequelize) => {
     await queryInterface.bulkDelete("salesProducts", null, {});
   },
-};
+}

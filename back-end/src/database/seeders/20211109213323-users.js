@@ -16,21 +16,23 @@ module.exports = {
           id: 2,
           name: "Fulana Pereira",
           email: "fulana@deliveryapp.com",
-          password: '3c28d2b0881bf46457a853e0b07531c6', //// senha: md5('fulana@123')
+          password: "3c28d2b0881bf46457a853e0b07531c6", //// senha: md5('fulana@123')
           role: "seller",
         },
         {
           id: 3,
           name: "Cliente Zé Birita",
           email: "zebirita@email.com",
-          password: '1c37466c159755ce1fa181bd247cb925', //  //md5('$#zebirita#$')
+          password: "1c37466c159755ce1fa181bd247cb925", //  //md5('$#zebirita#$')
           role: "customer",
         },
-        {id:4,
-        name: "fulano teste",
-        email: "a@a.com",
-      password: 'e10adc3949ba59abbe56e057f20f883e',
-      role: "customer"}
+        {
+          id: 4,
+          name: "fulano teste",
+          email: "a@a.com",
+          password: "e10adc3949ba59abbe56e057f20f883e",
+          role: "customer",
+        },
       ],
       { timestamps: false }
     );

@@ -7,7 +7,7 @@ module.exports = {
       [
         {
           user_id: 1,
-          seller_id: null,
+          seller_id: 2,
           total_price: 23,
           delivery_address: 'avenida nula',
           delivery_number: 345,
@@ -15,7 +15,7 @@ module.exports = {
           status: 'entregue',
         },
         {
-          user_id: null,
+          user_id:1,
           seller_id: 2,
           total_price: 56,
           delivery_address: 'avenida xablau',

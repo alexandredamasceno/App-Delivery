@@ -1,15 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 function Login() {
+  const history = useHistory();
   const [login, setLogin] = useState({ email: '', password: '' });
   const [disableBtn, setDisableBtn] = useState(true);
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isRedirect, setIsRedirect] = useState(false);
+  const [rout, setRout] = useState('');
 
-  const validateData = useCallback(() => {
+  const validateData = () => {
     // Ref- https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
     const validation = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     const MIN_LEN_PASS = 6;
@@ -19,8 +23,13 @@ function Login() {
     } else {
       setDisableBtn(true);
     }
-  }, [login.email, login.password.length]);
-
+  };
+  useEffect(() => {
+    const local = JSON.parse(localStorage.getItem('user')) || null;
+    if (local) {
+      history.push('/customer/products');
+    }
+  }, []);
   const changeState = ({ target: { name, value } }) => {
     setLogin({ ...login, [name]: value });
     validateData();
@@ -32,21 +41,24 @@ function Login() {
     validateData();
   }, [login, validateData]);
 
-  const getApi = async () => {
+  const getApi = async (event) => {
+    event.preventDefault();
     try {
       const { data } = await axios.post('http://localhost:3001/login', login);
 
       localStorage.setItem('user', JSON.stringify(data));
+      setRout(data.role);
       setIsRedirect(true);
     } catch (e) {
       setErrorMessage(e.response.data.message);
       setIsError(true);
+      setDisableBtn(true);
     }
   };
 
   return (
     <div>
-      {isRedirect && <Redirect to="/customer/products" />}
+      { isRedirect && <Redirect to={ `/${rout}/products` } />}
 
       <h1>Login page</h1>
 
@@ -73,9 +85,9 @@ function Login() {
       </label>
 
       <button
-        type="button"
+        type="submit"
         data-testid="common_login__button-login"
-        onClick={ () => getApi() }
+        onClick={ getApi }
         disabled={ disableBtn }
       >
         Login

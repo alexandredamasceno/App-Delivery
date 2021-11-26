@@ -6,7 +6,7 @@ module.exports = (err, _req, res, _next) => {
     userDontExist: 400,
     expiredToken: 401,
     userDoesntExist: 404,
-    categoryNotFound: 400,
+    saleNotFound: 400,
   };
   const statusMenssage = {
     userAlreadyExist: 'User already registered',
@@ -14,7 +14,7 @@ module.exports = (err, _req, res, _next) => {
     userDontExist: 'Invalid fields',
     expiredToken: 'Expired or invalid token',
     userDoesntExist: 'User does not exist',
-    categoryNotFound: '"categoryIds" not found',
+    saleNotFound: 'Sale id not found',
   };
   return res.status(statusCode[err] || 500).json({ message: statusMenssage[err] });
 };

@@ -9,7 +9,7 @@ function CardsProducts({ product }) {
   const { id, name, price } = product;
 
   const handleClick = () => {
-    setObj({ name, quantity, price, total: quantity * Number(price) });
+    setObj({ id, name, quantity, price, total: quantity * Number(price) });
   };
 
   const updateOrder = () => {
@@ -19,10 +19,12 @@ function CardsProducts({ product }) {
 
   useEffect(() => {
     updateOrder();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [obj]);
 
   useEffect(() => {
     handleClick();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity]);
 
   return (
@@ -51,7 +53,6 @@ function CardsProducts({ product }) {
         value={ String(quantity) }
         onChange={ (e) => setQuantity(e.target.value) }
       />
-      {console.log(quantity)}
       <button
         type="button"
         data-testid={ `customer_products__button-card-add-item-${id}` }

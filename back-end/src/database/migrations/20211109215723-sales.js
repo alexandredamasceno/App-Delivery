@@ -9,43 +9,54 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         onUpdate:'CASCADE',
         onDelete: 'CASCADE',
         references: {
           model: 'users',
           key: 'id'
-        }
+        },
+        field: 'user_id',
       },
-      seller_id: {
+      sellerId: {
         type: Sequelize.INTEGER,
         onUpdate:'CASCADE',
         onDelete: 'CASCADE',
         references: {
           model: 'users',
           key: 'id'
-        }
+        },
+        field: 'seller_id',
       },
-      total_price: {
+      totalPrice: {
         allowNull: false,
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(9,2),
+        defaultValue: 0.00,
+        field: 'total_price',
       },
-      delivery_address: {
+      deliveryAddress: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: '',
+        field: 'delivery_address',
       },
-      delivery_number: {
+      deliveryNumber: {
         allowNull: false,
         type: Sequelize.STRING,
+        defaultValue: '',
+        field: 'delivery_number',
       },
-      sale_date: {
+      saleDate: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: new Date('2011-08-01T19:58:00.000Z'),
+        field: 'sale_date',
       },
       status:{
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: '',
       }
 
     });
@@ -55,3 +66,4 @@ module.exports = {
     await queryInterface.dropTable("sales");
   },
 };
+
