@@ -47,7 +47,10 @@ function Login() {
       const { data } = await axios.post('http://localhost:3001/login', login);
 
       localStorage.setItem('user', JSON.stringify(data));
-      setRout(data.role);
+      setRout1(data.role);
+      if (data.role !== 'customer' && data.role !== 'adm') setRout2('orders');
+      if (data.role === 'adm') setRout2('manage');
+      if (data.role === 'customer') setRout2('products');
       setIsRedirect(true);
     } catch (e) {
       setErrorMessage(e.response.data.message);

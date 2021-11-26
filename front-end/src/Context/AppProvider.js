@@ -16,6 +16,7 @@ function AppProvider({ children }) {
   const [dataOrder, setDataOrder] = useState([]);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(null);
+  const [orders, setOrders] = useState([]);
 
   const history = useHistory();
 
@@ -25,6 +26,14 @@ function AppProvider({ children }) {
       .then((res) => res.json())
       .then((res) => setProducts(res.products))
       .catch((e) => setError(e));
+  };
+
+  const getOrders = () => {
+    const url = 'http://localhost:3001/sale';
+    fetch(url)
+      .then((response) => response.json())
+      .then((response) => setOrders(response))
+      .catch((err) => console.log('Erro na requisição dos pedidos', err.message));
   };
 
   const registerUser = async () => {
@@ -84,6 +93,8 @@ function AppProvider({ children }) {
     setDetailsOrder,
     name,
     setName,
+    orders,
+    getOrders,
   };
   return (
     <AppContext.Provider
