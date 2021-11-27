@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Order from '../components/Order';
 import SaleApi from '../service/saleAPI';
-import Header  from '../components/Header'
+import Header from '../components/Header';
 
 function PagesOrder() {
   const [dataSeler, setDataseler] = useState();
