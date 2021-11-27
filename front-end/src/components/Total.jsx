@@ -6,7 +6,6 @@ function Total() {
 
   useEffect(() => {
     const getTotal = () => {
-      console.log(dataOrder);
       const result = dataOrder.reduce((prev, curren) => prev + Number(curren.total), 0)
         .toFixed(2).replace('.', ',');
       setTotal(result);

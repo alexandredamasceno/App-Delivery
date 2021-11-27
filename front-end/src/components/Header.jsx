@@ -22,7 +22,7 @@ function Header() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <nav>
+    <span>
       {routeSeller && (
         <Link to="/customer/products">
           <button
@@ -54,17 +54,17 @@ function Header() {
 
       <Link
         to="/login"
-        // data-testid="customer_products__element-navbar-link-logout"
+        data-testid="customer_products__element-navbar-link-logout"
       >
         <button
           type="button"
           onClick={ () => { localStorage.removeItem('user'); } }
-          data-testid="customer_products__element-navbar-link-logout"
+          data-testid="customer_products__element-navbar-link-logoutt"
         >
           Sair
         </button>
       </Link>
-    </nav>
+    </span>
   );
 }
 

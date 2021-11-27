@@ -55,8 +55,8 @@ function DetailsOrder() {
             htmlFor="input-name"
             data-testid="customer_order_details__element-order-details-label-seller-name"
           >
-            P.Venda
-            <span id="input-name">{allData[0].user.name}</span>
+            P.Venda:
+            <span id="input-name">{allData[0].seller.name}</span>
           </label>
           <label
             htmlFor="input-date"
