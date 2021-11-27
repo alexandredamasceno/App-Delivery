@@ -30,7 +30,6 @@ function DetailsOrder() {
     socket.emit('Entregue', { id, status: value });
   };
   socket.on('newStatus', (newStatus) => {
-    console.log(newStatus);
     setChangeStatus(newStatus);
   });
   return (

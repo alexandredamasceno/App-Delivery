@@ -10,26 +10,25 @@ const io = require('socket.io')(http, {
   cors: {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
-  }, 
+  },
 });
 
 const { updateSaleStatus } = require('../services/sales');
 
 io.on('connection', async (socket) => {
   socket.on('statusChange', async (order) => {
-    // console.log('Front: ', order);
-    if (!order.id === '' && !order.status === '') {
       const bdStatus = await updateSaleStatus(order);
       io.emit('newStatus', { newStatus: bdStatus });
-    }
   });
 
   socket.on('Entregue', async (order) => {
-    console.log('Front: ', order);
+    if (!order.id || !order.status) {
+      return null;
+    }
     // if (!order.id === '' && !order.status === '') {
       const bdStatus = await updateSaleStatus(order);
       console.log('bsStatus: ', bdStatus);
-     
+
       io.emit('newStatus', { newStatus: bdStatus });
     // }
   });
@@ -41,7 +40,7 @@ const userRegisterRoute = require('../routes/userRegisterRoute');
 const productsRoute = require('../routes/productsRoute');
 const salesRoute = require('../routes/salesRoute');
 const saleProductsRoute = require('../routes/saleProductsRoute');
-const usersRoute = require('../routes/usersRoute'); 
+const usersRoute = require('../routes/usersRoute');
 
 app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, '..', '..', 'public')));

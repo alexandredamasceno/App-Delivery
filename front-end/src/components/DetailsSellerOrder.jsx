@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import AppContext from '../Context/AppContext';
 
 const URL = 'http://localhost:3001';
-
 export default function DetailsSellerOrder() {
   const { productsAPI, detailsOrder } = useContext(AppContext);
-  const [valueStatus, setValueStatus] = useState({ id: '', status: '' });
+  const [valueStatus, setValueStatus] = useState();
 
   const dataTesteIdItemNumber = 'seller_order_details__element-order-table-item-number-';
 
@@ -20,20 +19,22 @@ export default function DetailsSellerOrder() {
 
   const dataTestTotalPrice = 'seller_order_details__element-order-total-price';
 
+  const { id, saleDate, status } = detailsOrder;
   const socket = socketIOClient(URL);
   useEffect(() => {
-    socket.emit('statusChange', valueStatus);
-  }, [socket, valueStatus]);
+    setValueStatus(status);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const { id, saleDate, status } = detailsOrder;
   const date = new Date(saleDate);
   const handleClick = ({ target: { name } }) => {
-    setValueStatus({ id, status: name });
+    setValueStatus(name);
+    socket.emit('statusChange', { id, status: name });
   };
-  socket.on('newStatus', ({ newStatus }) => {
-    setValueStatus({ ...valueStatus, status: newStatus });
-  });
-
+  // socket.on('newStatus', ({ newStatus }) => {
+  // //  setValueStatus(newStatus);
+  // });
+  const emTransito = 'Em Trânsito';
   return (
     <>
       <span>
@@ -48,35 +49,38 @@ export default function DetailsSellerOrder() {
           htmlFor="input-date"
           data-testid="seller_order_details__element-order-details-label-order-date"
         >
-          <span id="input-date">{ date.toLocaleDateString('pt-br')}</span>
+          <span id="input-date">{date.toLocaleDateString('pt-br')}</span>
         </label>
         <label
           htmlFor="input-status"
           data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
-          <span id="input-status">
-            { valueStatus.status ? valueStatus.status : status }
-          </span>
+          <span id="input-status">{valueStatus || status}</span>
         </label>
         <button
           type="button"
           name="Preparando"
           data-testid="seller_order_details__button-preparing-check"
           onClick={ handleClick }
-          disabled={ valueStatus.status === 'preparing' }
+          disabled={
+            status === 'Preparando'
+            || status === emTransito
+            || valueStatus === 'Preparando'
+            || valueStatus === emTransito
+          }
         >
           Preparar Pedido
         </button>
 
         <button
           type="button"
-          name="Em Trânsito"
+          name={ emTransito }
           data-testid="seller_order_details__button-dispatch-check"
+          disabled={ (status !== 'Preparando' && valueStatus !== 'Preparando') }
           onClick={ handleClick }
         >
           Saiu Para Entrega
         </button>
-
       </span>
       <table>
         <thead>
@@ -97,7 +101,9 @@ export default function DetailsSellerOrder() {
               <td data-testid={ `${dataTesteIdItemNumber}${index}` }>
                 {index + 1}
               </td>
-              <td data-testid={ `${dataTesteIdDetails}${index}` }>{element.name}</td>
+              <td data-testid={ `${dataTesteIdDetails}${index}` }>
+                {element.name}
+              </td>
               <td data-testid={ `${dataTesteIdQuantidade}${index}` }>
                 {element.SalesProduct.quantity}
               </td>
@@ -116,10 +122,15 @@ export default function DetailsSellerOrder() {
       </table>
       <span>Total: </span>
       <span data-testid={ `${dataTestTotalPrice}` }>
-        {productsAPI.reduce((prev, currenty) => (prev
-          + (Number(currenty.price) * currenty.SalesProduct.quantity)), 0)
-          .toFixed(2).toString().replace('.', ',')}
-
+        {productsAPI
+          .reduce(
+            (prev, currenty) => prev + Number(currenty.price)
+             * currenty.SalesProduct.quantity,
+            0,
+          )
+          .toFixed(2)
+          .toString()
+          .replace('.', ',')}
       </span>
     </>
   );

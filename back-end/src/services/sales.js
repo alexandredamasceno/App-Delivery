@@ -33,9 +33,11 @@ const getAllSales = async () => {
 };
 
 const updateSaleStatus = async ({ status, id }) => {
+    if (!status || !id) {
+        return null;
+    }
   await Sale.update({ status }, { where: { id } });
   const result = await Sale.findOne({ where: { id } });
-  console.log('BD: ', result.dataValues.status);
   return result.dataValues.status;
 };
 
