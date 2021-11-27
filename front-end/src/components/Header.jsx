@@ -59,7 +59,7 @@ function Header() {
         <button
           type="button"
           onClick={ () => { localStorage.removeItem('user'); } }
-          data-testid="customer_products__element-navbar-link-logoutt"
+          data-testid="customer_products__element-navbar-link-logout"
         >
           Sair
         </button>
