@@ -12,7 +12,7 @@ module.exports = {
           delivery_address: 'avenida nula',
           delivery_number: 345,
           sale_date: new Date('2011-08-01T19:58:00.000Z'),
-          status: 'entregue',
+          status: 'Entregue',
         },
         {
           user_id:1,
@@ -21,7 +21,7 @@ module.exports = {
           delivery_address: 'avenida xablau',
           delivery_number: 678,
           sale_date: new Date('2011-08-01T19:58:00.000Z'),
-          status: 'pendente',
+          status: 'Pendente',
         },
       ],
       { timestamps: false }

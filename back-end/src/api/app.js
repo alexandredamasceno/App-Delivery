@@ -25,10 +25,7 @@ io.on('connection', async (socket) => {
     if (!order.id || !order.status) {
       return null;
     }
-    // if (!order.id === '' && !order.status === '') {
       const bdStatus = await updateSaleStatus(order);
-      console.log('bsStatus: ', bdStatus);
-
       io.emit('newStatus', { newStatus: bdStatus });
     // }
   });
