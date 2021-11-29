@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import Header from '../components/Header';
-import DetailsOrder from '../components/DetailsOrder';
 
-function PagesOrderDetails() {
+import Header from '../components/Header';
+import DetailsSellerOrder from '../components/DetailsSellerOrder';
+
+export default function PagesSellerOrderDetails() {
   return (
     <>
       <Header />
-      <DetailsOrder isRemoveBtn={ false } />
+      <DetailsSellerOrder />
     </>
   );
 }
-
-export default PagesOrderDetails;

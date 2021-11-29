@@ -11,7 +11,7 @@ function Login() {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isRedirect, setIsRedirect] = useState(false);
-  const [rout, setRout] = useState('');
+  const [rout, setRout] = useState();
 
   const validateData = () => {
     // Ref- https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
@@ -56,9 +56,16 @@ function Login() {
     }
   };
 
+  const redirect = {
+    seller: '/seller/orders',
+    customer: '/customer/products',
+    admin: '/admin/manage' };
   return (
     <div>
-      { isRedirect && <Redirect to={ `/${rout}/products` } />}
+      {
+        isRedirect
+      && <Redirect to={ redirect[rout] } />
+      }
 
       <h1>Login page</h1>
 

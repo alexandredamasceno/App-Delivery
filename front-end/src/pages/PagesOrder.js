@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Order from '../components/Order';
 import SaleApi from '../service/saleAPI';
+import Header from '../components/Header';
 
 function PagesOrder() {
   const [dataSeler, setDataseler] = useState();
@@ -14,7 +15,7 @@ function PagesOrder() {
   }, [setDataseler]);
   return (
     <>
-      <h1>Orders</h1>
+      <Header />
       {dataSeler && dataSeler.map((e, index) => (
         <Order
           status={ e.status }
