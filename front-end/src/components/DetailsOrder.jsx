@@ -34,7 +34,6 @@ function DetailsOrder() {
 
   const socket = socketIOClient(URL);
   const handleChange = ({ target: { value } }) => {
-    setStatus(value);
     socket.emit('Entregue', { id, status: value });
   };
   socket.on('newStatus', ({ newStatus }) => {

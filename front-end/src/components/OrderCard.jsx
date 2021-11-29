@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import socketIOClient from 'socket.io-client';
 
+const URL = 'http://localhost:3001';
 function OrderCard({
   id, deliveryAddress, deliveryNumber, status, saleDate, totalPrice }) {
   const newDate = new Date(saleDate);
   const [isRedirect, setIsRedirect] = useState(false);
+  const [pedido, setPedido] = useState({ order: { id, status } });
   const handleClick = () => {
     setIsRedirect(true);
   };
-  console.log(id, deliveryAddress, deliveryNumber, status, totalPrice);
+  const socket = socketIOClient(URL);
+  socket.on('Entregue', (body) => {
+    setPedido(body);
+  });
+  socket.on('statusChange', (body) => {
+    setPedido(body);
+  });
+
   return (
     <>
       { isRedirect && <Redirect to={ `/seller/orders/${id}` } /> }
@@ -22,7 +32,7 @@ function OrderCard({
         <span
           data-testid={ `seller_orders__element-delivery-status-${id}` }
         >
-          {status}
+          {id === Number(pedido.order.id) ? pedido.order.status : status}
         </span>
         <span
           data-testid={ `seller_orders__element-order-date-${id}` }
