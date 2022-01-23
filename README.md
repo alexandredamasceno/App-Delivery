@@ -6,7 +6,7 @@
 2. Entre na pasta do repositório que você acabou de clonar:
   * `cd App-Delivery`.
 3. Instale as dependências
-  * `npm install`.
+  * `npm install` (na raiz do projeto e em ambas as pastas back-end e front-end, individualmente)
 4. Para rodar o projeto:
   - Abra a pasta back-end:
   * `npm start`
