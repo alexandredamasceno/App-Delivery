@@ -89,31 +89,6 @@ Nesse projeto, fomos capazes de:
 - **Fluxo da Pessoa Administradora** que compreende: 
   - (11) Tela de gerenciamento de usuários (`11admin_manage_users.test`).
 
-## Desenvolvimento
-
-## Preparando o campo e iniciando o projeto
-
-- ⚠️ **IMPORTANTE** ⚠️: O processo de avaliação completo **é bem demorado** (em torno de 20 minutos), por isso, **é importante que os testes sejam feitos por partes, localmente, antes de serem enviados para o avaliador!** Para isso, utilize os comandos de teste local (`npm run test:dev*`) apresentados em ["Scripts relevantes do `package.json` principal"](#scripts-relevantes-do-packagejson-principal)!
-  - Exemplo: Após terminar os requisitos do primeiro arquivo (`01login.test.js`), vc pode utilizar o comando `npm run test:dev 01` ou `npm run test:dev:open 01`(caso queira visualizar) para testar aquela parte do projeto. 
-  - Aqui, vocês também tem liberdade para utilizar os comandos `.only` ou `.skip` para validar testes específicos no avaliador local (pasta `./__tests__/end-to-end`), exemplo:
-```js script
-/*
-  ⚠️ **IMPORTANTE** ⚠️: Esse artifício **não deve ser "commitado" com o projeto, sob risco de desqualificação na avaliação**, porém pode ser utilizado para ganhar tempo no teste local.
-*/
-describe(requirement(1), () => {
-  test.only("O avaliador navegará para o endereço do host utilizando o endpoint '/'", async () => { // O `test.only` deve rodar o teste específico do requisito 1 e pular os demais
-    // ...
-  });
-});
-```
-
-- ⚠️ **IMPORTANTE** ⚠️: Para testes locais, **é fundamental configurar o arquivo de variáveis de ambiente `.env` (de `environment`) dentro da pasta `./back-end`** (ele é o único `.env` no projeto), conforme exemplo em `.env.example`, na mesma pasta. Esse arquivo servirá de referência para o avaliador e caso não exista, o avaliador vai utilizar valores `default` pro processo (O que pode estourar erro no teste local, caso suas configurações não sejam as mesmas).
-
-- Excepcionalmente nesse projeto, também existe a necessidade de manter e subir no repositório o arquivo `jwt.evaluation.key`, que também deve estar em `./back-end`. Esse arquivo deve conter única e exclusivamente a **chave utilizada para criptografia com JWT**, que também vai ser testado pelo avaliador. Nesse sentido, esse arquivo pode ser lido por sua aplicação na hora de trabalhar com `tokens`.
-
-- ⚠️ **IMPORTANTE** ⚠️: Inicie o projeto pela raiz, utilizando o comando `npm i`;
-  - Após isso, é possível fazer a instalação de ambos os aplicativos (back e front) através da raiz do projeto, utilizando o comando `npm run dev:start` (esse comando também restaurará o banco de dados, caso o `.env` esteja configurado corretamente).
-
 ## Linter
 
 Usamos o [ESLint](https://eslint.org/) para fazer a análise estática do código.
@@ -136,3 +111,6 @@ Usaremos também o [StyleLint](https://stylelint.io/) para fazer a análise est�
 
 Para poder rodar o `StyleLint` em um projeto basta executar o comando `npm install` dentro do projeto de front-end e depois `npm run lint:styles`. Se a análise do `StyleLint` encontrar problemas no seu código, tais problemas serão mostrados no seu terminal. Se não houver problema no seu código, nada será impresso no seu terminal.
 
+### ⚠️ Atenção: Esse é um projeto de avaliação da Trybe - instituição onde estou estudando. Todo o código desse projeto foi feito por mim e pelos integrantes do meu grupo, incluindo estrutura de pastas, exceto o código de implementação dos testes, esses foram feitos pelos instrutores da Trybe para testar as nossas implementações.
+
+#### ⚠️ Não se assuste se encontrar algo fora do lugar, estou melhorando algumas implementações e eventualmente criando outras. Obrigado pela compreensão.
